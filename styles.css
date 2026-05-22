@@ -272,10 +272,17 @@ body {
   }
 
   .tt-faq-wrap {
-  padding-bottom: 1rem;
+    padding-bottom: 1rem;
   }
 
   .tt-form-wrap {
-  padding-top: 1rem;
+    padding-top: 1rem;
+  }
+  .tt-receipt-title {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+    color: #2A2A2A;
+    font-family: Georgia, serif;
   }
 }

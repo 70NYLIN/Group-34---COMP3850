@@ -95,11 +95,35 @@ document.getElementById('submitBtn').addEventListener('click', () => {
   if (!ok) return;
 
   document.getElementById('summary').innerHTML = `
-    <div class="tt-summary-row"><strong>Role</strong><span>${state.role}</span></div>
-    <div class="tt-summary-row"><strong>Interest</strong><span>${state.interest}</span></div>
-    <div class="tt-summary-row"><strong>Name</strong><span>${name}</span></div>
-    <div class="tt-summary-row"><strong>Email</strong><span>${email}</span></div>
-    <div class="tt-summary-row"><strong>Message</strong><span>${message || 'N/A'}</span></div>
+    <div class="tt-summary-row">
+      <strong>Reference ID</strong>
+      <span>#TT2026</span>
+    </div>
+
+    <div class="tt-summary-row">
+      <strong>Role</strong>
+      <span>${state.role}</span>
+    </div>
+
+    <div class="tt-summary-row">
+      <strong>Area of Interest</strong>
+      <span>${state.interest}</span>
+    </div>
+
+    <div class="tt-summary-row">
+      <strong>Name</strong>
+      <span>${name}</span>
+    </div>
+
+    <div class="tt-summary-row">
+      <strong>Email</strong>
+      <span>${email}</span>
+    </div>
+
+    <div class="tt-summary-row">
+      <strong>Message</strong>
+      <span>${message || 'N/A'}</span>
+    </div>
   `;
 
   showStep('confirmStep');
