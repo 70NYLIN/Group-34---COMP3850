@@ -271,6 +271,62 @@ body {
     font-size: 1rem;
   }
 
+  @media (max-width: 768px) {
+  body {
+    padding: 0;
+  }
+
+  .tt-form-wrap,
+  .tt-faq-wrap {
+    padding: 2rem 1rem;
+  }
+
+  .tt-form-box {
+    padding: 1.5rem 1rem;
+    border-radius: 16px;
+  }
+
+  .tt-form-title,
+  .tt-faq-title {
+    font-size: 1.7rem;
+  }
+
+  .tt-form-subtitle,
+  .tt-faq-subtitle {
+    font-size: 0.95rem;
+  }
+
+  .tt-question {
+    font-size: 1.15rem;
+  }
+
+  .tt-option,
+  .tt-btn,
+  .tt-input,
+  .tt-textarea {
+    font-size: 0.95rem;
+  }
+
+  .tt-nav {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .tt-btn {
+    width: 100%;
+  }
+
+  .tt-summary-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .tt-faq-question {
+    font-size: 0.95rem;
+    align-items: flex-start;
+  }
+  }
+
   .tt-faq-wrap {
     padding-bottom: 1rem;
   }
