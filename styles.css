@@ -1,0 +1,273 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: #2A2A2A;
+  background: #fff;
+}
+
+.tt-form-wrap,
+.tt-faq-wrap {
+  max-width: 850px;
+  margin: 0 auto;
+  padding: 3rem 1.25rem;
+}
+
+.tt-form-box {
+  background: #F8F6EF;
+  border-radius: 24px;
+  padding: 2.5rem 2rem;
+}
+
+.tt-form-title,
+.tt-faq-title {
+  text-align: center;
+  font-size: 2.2rem;
+  margin-bottom: 0.5rem;
+  font-family: Georgia, serif;
+}
+
+.tt-form-subtitle,
+.tt-faq-subtitle {
+  text-align: center;
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+.tt-progress {
+  height: 6px;
+  background: #DDD;
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.tt-progress-bar {
+  height: 100%;
+  width: 33%;
+  background: #7C9444;
+  transition: width 0.3s ease;
+}
+
+.tt-step-count {
+  text-align: center;
+  color: #666;
+  margin-bottom: 2rem;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.tt-question {
+  text-align: center;
+  font-size: 1.3rem;
+  margin-bottom: 1.5rem;
+  font-family: Georgia, serif;
+}
+
+.tt-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.tt-option {
+  background: white;
+  border: 2px solid #DDD;
+  border-radius: 12px;
+  padding: 1rem 1.1rem;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.tt-option:hover,
+.tt-option.selected {
+  border-color: #7C9444;
+  background: #EAF0D5;
+}
+
+.tt-field {
+  margin-bottom: 1rem;
+}
+
+.tt-label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-weight: 600;
+}
+
+.tt-input,
+.tt-textarea {
+  width: 100%;
+  box-sizing: border-box;
+  border: 2px solid #DDD;
+  border-radius: 10px;
+  padding: 0.8rem;
+  font-size: 1rem;
+}
+
+.tt-textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.tt-error {
+  color: #C0392B;
+  font-size: 0.85rem;
+  margin-top: 0.3rem;
+  min-height: 1rem;
+}
+
+.tt-nav {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+}
+
+.tt-btn {
+  border: none;
+  border-radius: 999px;
+  background: #7C9444;
+  color: white;
+  padding: 0.8rem 1.6rem;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.tt-btn:hover {
+  background: #667A38;
+}
+
+.tt-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.tt-btn-ghost {
+  background: transparent;
+  color: #666;
+}
+
+.tt-hidden {
+  display: none !important;
+}
+
+.tt-confirm {
+  text-align: center;
+}
+
+.tt-check {
+  width: 80px;
+  height: 80px;
+  background: #7C9444;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  font-size: 2.2rem;
+}
+
+.tt-summary {
+  background: white;
+  border-radius: 14px;
+  padding: 1.25rem;
+  margin-top: 1.5rem;
+  text-align: left;
+}
+
+.tt-summary-row {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #EEE;
+  padding: 0.5rem 0;
+  gap: 1rem;
+}
+
+.tt-summary-row:last-child {
+  border-bottom: none;
+}
+
+.tt-faq-item {
+  border-bottom: 1px solid #ddd;
+}
+
+.tt-faq-item:first-child {
+  border-top: 1px solid #ddd;
+}
+
+.tt-faq-question {
+  width: 100%;
+  background: white;
+  border: none;
+  padding: 1.25rem 0;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #2A2A2A;
+}
+
+.tt-faq-question:hover {
+  color: #7C9444;
+}
+
+.tt-faq-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #F3F1E9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.tt-faq-icon::before {
+  content: "+";
+  font-size: 1.4rem;
+}
+
+.tt-faq-question[aria-expanded="true"] .tt-faq-icon {
+  background: #7C9444;
+  color: white;
+  transform: rotate(45deg);
+}
+
+.tt-faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease;
+}
+
+.tt-faq-answer-inner {
+  padding: 0 0 1.5rem;
+  color: #555;
+  line-height: 1.7;
+}
+
+@media (max-width: 640px) {
+  .tt-form-title,
+  .tt-faq-title {
+    font-size: 1.8rem;
+  }
+
+  .tt-form-box {
+    padding: 2rem 1.25rem;
+  }
+
+  .tt-summary-row {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .tt-faq-question {
+    font-size: 1rem;
+  }
+}

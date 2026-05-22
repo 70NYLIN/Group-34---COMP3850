@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enquiry Form and FAQ</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+
+  <section class="tt-form-wrap">
+    <div class="tt-form-box">
+      <h1 class="tt-form-title">Program Enquiry Form</h1>
+      <p class="tt-form-subtitle">Interactive enquiry form prototype</p>
+
+      <div class="tt-progress">
+        <div class="tt-progress-bar" id="progressBar"></div>
+      </div>
+
+      <div class="tt-step-count" id="stepCount">Step 1 of 3</div>
+
+      <div class="tt-step" id="step1">
+        <h2 class="tt-question">I am getting in touch as a...</h2>
+
+        <div class="tt-options" id="roleOptions">
+          <button type="button" class="tt-option" data-value="Parent or carer">Parent or carer</button>
+          <button type="button" class="tt-option" data-value="Educator">Educator</button>
+          <button type="button" class="tt-option" data-value="Health worker">Health worker</button>
+          <button type="button" class="tt-option" data-value="Community member">Community member</button>
+        </div>
+
+        <div class="tt-nav">
+          <span></span>
+          <button type="button" class="tt-btn" id="next1" disabled>Next</button>
+        </div>
+      </div>
+
+      <div class="tt-step tt-hidden" id="step2">
+        <h2 class="tt-question">Which area are you interested in?</h2>
+
+        <div class="tt-options" id="programOptions">
+          <button type="button" class="tt-option" data-value="Programs">Programs</button>
+          <button type="button" class="tt-option" data-value="Resources">Resources</button>
+          <button type="button" class="tt-option" data-value="Workshops">Workshops</button>
+          <button type="button" class="tt-option" data-value="Partnerships">Partnerships</button>
+        </div>
+
+        <div class="tt-nav">
+          <button type="button" class="tt-btn tt-btn-ghost" id="back2">Back</button>
+          <button type="button" class="tt-btn" id="next2" disabled>Next</button>
+        </div>
+      </div>
+
+      <div class="tt-step tt-hidden" id="step3">
+        <h2 class="tt-question">Your contact details</h2>
+
+        <div class="tt-field">
+          <label class="tt-label" for="name">Name</label>
+          <input class="tt-input" id="name" type="text">
+          <div class="tt-error" id="nameError"></div>
+        </div>
+
+        <div class="tt-field">
+          <label class="tt-label" for="email">Email</label>
+          <input class="tt-input" id="email" type="email">
+          <div class="tt-error" id="emailError"></div>
+        </div>
+
+        <div class="tt-field">
+          <label class="tt-label" for="message">Message</label>
+          <textarea class="tt-textarea" id="message"></textarea>
+        </div>
+
+        <div class="tt-nav">
+          <button type="button" class="tt-btn tt-btn-ghost" id="back3">Back</button>
+          <button type="button" class="tt-btn" id="submitBtn">Submit</button>
+        </div>
+      </div>
+
+      <div class="tt-step tt-hidden" id="confirmStep">
+        <div class="tt-confirm">
+          <div class="tt-check">✓</div>
+          <h2>Thank you for your enquiry.</h2>
+          <p>This prototype currently focuses on frontend interaction.</p>
+          <div class="tt-summary" id="summary"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tt-faq-wrap">
+    <h1 class="tt-faq-title">Frequently Asked Questions</h1>
+    <p class="tt-faq-subtitle">Prototype FAQ section for a community support website.</p>
+
+    <div class="tt-faq-item">
+      <button class="tt-faq-question" aria-expanded="false">
+        <span>Who can participate in the ThriveTogether programs?</span>
+        <span class="tt-faq-icon"></span>
+      </button>
+      <div class="tt-faq-answer">
+        <div class="tt-faq-answer-inner">
+          ThriveTogether programs are designed for Aboriginal and Torres Strait Islander children,
+          families, carers, and community members seeking culturally safe educational and wellbeing support.
+        </div>
+      </div>
+    </div>
+
+    <div class="tt-faq-item">
+      <button class="tt-faq-question" aria-expanded="false">
+        <span>Are the workshops available online?</span>
+        <span class="tt-faq-icon"></span>
+      </button>
+      <div class="tt-faq-answer">
+        <div class="tt-faq-answer-inner">
+          Selected workshops and community sessions can be accessed online depending on program availability,
+          participant location, and staff capacity.
+        </div>
+      </div>
+    </div>
+
+    <div class="tt-faq-item">
+      <button class="tt-faq-question" aria-expanded="false">
+        <span>How do I contact the organisation for support?</span>
+        <span class="tt-faq-icon"></span>
+      </button>
+      <div class="tt-faq-answer">
+        <div class="tt-faq-answer-inner">
+          Community members can contact the organisation through the enquiry form prototype to request
+          information about programs, workshops, resources, or referral pathways.
+        </div>
+      </div>
+    </div>
+
+    <div class="tt-faq-item">
+      <button class="tt-faq-question" aria-expanded="false">
+        <span>Can schools or organisations request partnerships?</span>
+        <span class="tt-faq-icon"></span>
+      </button>
+      <div class="tt-faq-answer">
+        <div class="tt-faq-answer-inner">
+          Yes. Schools, healthcare providers, and community organisations may submit partnership enquiries
+          for collaborative programs, community events, training, or educational resources.
+        </div>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>
