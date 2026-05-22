@@ -270,4 +270,12 @@ body {
   .tt-faq-question {
     font-size: 1rem;
   }
+
+  .tt-faq-wrap {
+  padding-bottom: 1rem;
+  }
+
+  .tt-form-wrap {
+  padding-top: 1rem;
+  }
 }
