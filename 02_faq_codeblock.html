@@ -1,0 +1,317 @@
+<!-- ================================================================
+     ThriveTogether FAQ Accordion — Squarespace Code Block
+     Paste this entire block into a Code Block on the FAQ page.
+     No external dependencies. Tested for Squarespace 7.1.
+     All styles scoped under .tt-faq to avoid theme conflicts.
+     ================================================================ -->
+
+<style>
+  .tt-faq {
+    --tt-navy: #1F3A5F;
+    --tt-navy-dark: #142640;
+    --tt-cream: #F8F6EF;
+    --tt-sage: #7C9444;
+    --tt-sage-light: #EAF0D5;
+    --tt-text: #2A2A2A;
+    --tt-text-muted: #5A5A5A;
+    --tt-border: #DDD;
+
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 3rem;
+    color: var(--tt-text);
+    line-height: 1.6;
+  }
+
+  .tt-faq * { box-sizing: border-box; }
+
+  /* Legend at top */
+  .tt-faq-legend {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    padding: 0.75rem 1rem;
+    background: var(--tt-cream);
+    border-radius: 12px;
+    flex-wrap: wrap;
+    font-size: 0.85rem;
+    color: var(--tt-text-muted);
+  }
+
+  .tt-faq-legend-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .tt-faq-legend-icon {
+    width: 22px;
+    height: 22px;
+    border: 1px solid var(--tt-border);
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.85rem;
+    background: #fff;
+    color: var(--tt-text-muted);
+  }
+
+  .tt-faq-legend-icon.is-open {
+    background: var(--tt-navy);
+    border-color: var(--tt-navy);
+    color: #fff;
+  }
+
+  /* Accordion list */
+  .tt-faq-list {
+    border-top: 1px solid var(--tt-border);
+  }
+
+  .tt-faq-item {
+    border-bottom: 1px solid var(--tt-border);
+  }
+
+  .tt-faq-question {
+    width: 100%;
+    background: transparent;
+    border: none;
+    padding: 1rem 0;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--tt-text);
+    transition: color 0.2s ease;
+    font-family: inherit;
+    line-height: 1.4;
+  }
+
+  .tt-faq-question:hover {
+    color: var(--tt-navy);
+  }
+
+  .tt-faq-icon {
+    width: 28px;
+    height: 28px;
+    border: 1px solid var(--tt-border);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background: #fff;
+    color: var(--tt-text-muted);
+    font-weight: 700;
+    font-size: 0.95rem;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  }
+
+  .tt-faq-icon::before { content: "+"; }
+
+  .tt-faq-question[aria-expanded="true"] .tt-faq-icon {
+    background: var(--tt-navy);
+    border-color: var(--tt-navy);
+    color: #fff;
+  }
+
+  .tt-faq-question[aria-expanded="true"] .tt-faq-icon::before {
+    content: "−";
+  }
+
+  .tt-faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+  }
+
+  .tt-faq-answer-inner {
+    padding: 0 0 1.25rem;
+    color: var(--tt-text-muted);
+    line-height: 1.7;
+    font-size: 1.2rem;
+  }
+
+  .tt-faq-answer-inner a {
+    color: var(--tt-navy);
+    text-decoration: underline;
+  }
+
+  .tt-faq-answer-inner a:hover {
+    color: var(--tt-navy-dark);
+  }
+
+  /* Bottom CTA */
+  .tt-faq-bottom {
+    margin-top: 2rem;
+    text-align: center;
+    color: var(--tt-text-muted);
+    font-size: 0.92rem;
+  }
+
+  .tt-faq-bottom a {
+    color: var(--tt-navy);
+    font-weight: 600;
+    text-decoration: underline;
+  }
+
+  /* Mobile responsive */
+  @media (max-width: 600px) {
+    .tt-faq { padding: 0 1rem; }
+    .tt-faq-question { font-size: 0.95rem; }
+    .tt-faq-legend { font-size: 0.78rem; padding: 0.6rem 0.8rem; gap: 1rem; }
+  }
+</style>
+
+<div class="tt-faq">
+
+  <div class="tt-faq-legend">
+    <span class="tt-faq-legend-item">
+      <span class="tt-faq-legend-icon is-open">−</span>
+      Expanded — answer visible
+    </span>
+    <span class="tt-faq-legend-item">
+      <span class="tt-faq-legend-icon">+</span>
+      Collapsed — click to expand
+    </span>
+  </div>
+
+  <div class="tt-faq-list">
+
+    <div class="tt-faq-item">
+      <button class="tt-faq-question" aria-expanded="false">
+        <span>What programs are available for families?</span>
+        <span class="tt-faq-icon"></span>
+      </button>
+      <div class="tt-faq-answer">
+        <div class="tt-faq-answer-inner">
+          ThriveTogether offers a range of family-focused programs including wellness workshops, community events, and support group sessions. Programs are available throughout the year and are open to all community members.
+        </div>
+      </div>
+    </div>
+
+    <div class="tt-faq-item">
+      <button class="tt-faq-question" aria-expanded="false">
+        <span>How do I enrol in a program?</span>
+        <span class="tt-faq-icon"></span>
+      </button>
+      <div class="tt-faq-answer">
+        <div class="tt-faq-answer-inner">
+          You can enrol by completing the multi-step enquiry form available on the <a href="/contact">Contact</a> page. A staff member will follow up within 2&ndash;3 business days to confirm your enrolment and provide further information.
+        </div>
+      </div>
+    </div>
+
+    <div class="tt-faq-item">
+      <button class="tt-faq-question" aria-expanded="false">
+        <span>Are programs available online?</span>
+        <span class="tt-faq-icon"></span>
+      </button>
+      <div class="tt-faq-answer">
+        <div class="tt-faq-answer-inner">
+          Selected workshops and community sessions can be accessed online depending on program availability, participant location, and staff capacity. Please mention online attendance in your enquiry message.
+        </div>
+      </div>
+    </div>
+
+    <div class="tt-faq-item">
+      <button class="tt-faq-question" aria-expanded="false">
+        <span>Is there a cost to participate?</span>
+        <span class="tt-faq-icon"></span>
+      </button>
+      <div class="tt-faq-answer">
+        <div class="tt-faq-answer-inner">
+          Most ThriveTogether programs are offered free of charge thanks to support from our funders and partners. Where small contributions apply (such as for materials or workshop kits), this will be discussed during enrolment.
+        </div>
+      </div>
+    </div>
+
+    <div class="tt-faq-item">
+      <button class="tt-faq-question" aria-expanded="false">
+        <span>How can I access downloadable resources?</span>
+        <span class="tt-faq-icon"></span>
+      </button>
+      <div class="tt-faq-answer">
+        <div class="tt-faq-answer-inner">
+          All public guides, handbooks, and information packs are available on the Resources page. You can use the search bar or category filters to find what you need, then click the download button on each card.
+        </div>
+      </div>
+    </div>
+
+    <div class="tt-faq-item">
+      <button class="tt-faq-question" aria-expanded="false">
+        <span>Can schools or organisations request partnerships?</span>
+        <span class="tt-faq-icon"></span>
+      </button>
+      <div class="tt-faq-answer">
+        <div class="tt-faq-answer-inner">
+          Yes. Schools, healthcare providers, and community organisations may submit partnership enquiries through the Contact form for collaborative programs, community events, training, or educational resources.
+        </div>
+      </div>
+    </div>
+
+    <div class="tt-faq-item">
+      <button class="tt-faq-question" aria-expanded="false">
+        <span>Where are sessions delivered?</span>
+        <span class="tt-faq-icon"></span>
+      </button>
+      <div class="tt-faq-answer">
+        <div class="tt-faq-answer-inner">
+          Sessions are delivered in community settings including schools, community hubs, and online where appropriate. We work with each community to find a venue that feels safe and accessible.
+        </div>
+      </div>
+    </div>
+
+    <div class="tt-faq-item">
+      <button class="tt-faq-question" aria-expanded="false">
+        <span>What happens during a session?</span>
+        <span class="tt-faq-icon"></span>
+      </button>
+      <div class="tt-faq-answer">
+        <div class="tt-faq-answer-inner">
+          Sessions typically combine guided activities, practical resources, and time for questions or discussion. Each program is designed for a specific audience and runs between 60 and 90 minutes depending on the activity.
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="tt-faq-bottom">
+    Can&rsquo;t find what you&rsquo;re looking for? <a href="/contact">Get in touch</a> and our team will help.
+  </div>
+</div>
+
+<script>
+  (function() {
+    var root = document.querySelector('.tt-faq');
+    if (!root) return;
+    var buttons = root.querySelectorAll('.tt-faq-question');
+
+    buttons.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var expanded = btn.getAttribute('aria-expanded') === 'true';
+        var answer = btn.nextElementSibling;
+        btn.setAttribute('aria-expanded', String(!expanded));
+        if (!expanded) {
+          answer.style.maxHeight = answer.scrollHeight + 'px';
+        } else {
+          answer.style.maxHeight = '0';
+        }
+      });
+    });
+
+    // Re-measure on resize so animation stays accurate
+    window.addEventListener('resize', function() {
+      root.querySelectorAll('.tt-faq-question[aria-expanded="true"]').forEach(function(btn) {
+        var answer = btn.nextElementSibling;
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+      });
+    });
+  })();
+</script>

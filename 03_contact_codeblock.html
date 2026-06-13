@@ -1,0 +1,682 @@
+<!-- ================================================================
+     ThriveTogether Multi-step Enquiry Form — Squarespace Code Block
+     Paste this entire block into a Code Block on the Contact page.
+     No external dependencies. Tested for Squarespace 7.1.
+     All styles scoped under .tt-form to avoid theme conflicts.
+
+     Features:
+     - 3-step indicator with checkmarks
+     - Inline validation (email format, required fields)
+     - Date confirmation hint
+     - Review screen with all captured data
+     - Success card with auto-generated reference number #TT-YYMMDD-XXX
+     ================================================================ -->
+
+<style>
+  .tt-form {
+    --tt-navy: #1F3A5F;
+    --tt-navy-dark: #142640;
+    --tt-cream: #F8F6EF;
+    --tt-sage: #7C9444;
+    --tt-sage-light: #EAF0D5;
+    --tt-success: #2E7D32;
+    --tt-error: #C0392B;
+    --tt-text: #2A2A2A;
+    --tt-text-muted: #5A5A5A;
+    --tt-border: #DDD;
+    --tt-white: #FFFFFF;
+
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    color: var(--tt-text);
+    line-height: 1.6;
+  }
+
+  .tt-form * { box-sizing: border-box; }
+
+  .tt-form-box {
+    background: var(--tt-cream);
+    border-radius: 16px;
+    padding: 2rem;
+  }
+
+  .tt-form-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--tt-navy);
+    margin: 0 0 1.5rem;
+  }
+
+  /* Step indicator */
+  .tt-form-steps {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    gap: 0.5rem;
+  }
+
+  .tt-form-node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    flex: 0 0 auto;
+    text-align: center;
+  }
+
+  .tt-form-circle {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--tt-white);
+    border: 2px solid var(--tt-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    color: var(--tt-text-muted);
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+  }
+
+  .tt-form-node.is-active .tt-form-circle {
+    background: var(--tt-navy);
+    border-color: var(--tt-navy);
+    color: var(--tt-white);
+  }
+
+  .tt-form-node.is-done .tt-form-circle {
+    background: var(--tt-navy);
+    border-color: var(--tt-navy);
+    color: var(--tt-white);
+  }
+
+  .tt-form-node.is-done .tt-form-circle::before {
+    content: "\2713";
+    font-size: 1rem;
+  }
+
+  .tt-form-node.is-done .tt-form-num { display: none; }
+
+  .tt-form-step-label {
+    font-size: 0.75rem;
+    color: var(--tt-text-muted);
+    font-weight: 500;
+  }
+
+  .tt-form-node.is-active .tt-form-step-label,
+  .tt-form-node.is-done .tt-form-step-label {
+    color: var(--tt-navy);
+    font-weight: 600;
+  }
+
+  .tt-form-connector {
+    flex: 1;
+    height: 2px;
+    background: var(--tt-border);
+    margin: 0 0.5rem 1.4rem;
+    transition: background 0.3s ease;
+  }
+
+  .tt-form-connector.is-done {
+    background: var(--tt-navy);
+  }
+
+  /* Step heading */
+  .tt-form-step-title {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--tt-navy);
+    margin: 0 0 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--tt-border);
+  }
+
+  /* Fields */
+  .tt-form-field { margin-bottom: 1rem; }
+
+  .tt-form-field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .tt-form-label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--tt-text);
+  }
+
+  .tt-form-label-req::after {
+    content: " *";
+    color: var(--tt-error);
+  }
+
+  .tt-form-optional {
+    color: var(--tt-text-muted);
+    font-weight: 400;
+    font-size: 0.85rem;
+  }
+
+  .tt-form-input,
+  .tt-form-select,
+  .tt-form-textarea {
+    width: 100%;
+    border: 2px solid var(--tt-border);
+    border-radius: 6px;
+    padding: 0.6rem 0.8rem;
+    font-size: 0.95rem;
+    font-family: inherit;
+    color: var(--tt-text);
+    background: var(--tt-white);
+    transition: border-color 0.2s ease;
+  }
+
+  .tt-form-input:focus,
+  .tt-form-select:focus,
+  .tt-form-textarea:focus {
+    outline: none;
+    border-color: var(--tt-navy);
+  }
+
+  .tt-form-textarea {
+    min-height: 90px;
+    resize: vertical;
+  }
+
+  .tt-form-input.is-invalid,
+  .tt-form-select.is-invalid {
+    border-color: var(--tt-error);
+  }
+
+  .tt-form-hint {
+    font-size: 0.8rem;
+    color: var(--tt-success);
+    margin-top: 0.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  .tt-form-hint::before { content: "\2713"; }
+
+  .tt-form-error {
+    color: var(--tt-error);
+    font-size: 0.83rem;
+    margin-top: 0.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    min-height: 1rem;
+  }
+
+  .tt-form-error:not(:empty)::before { content: "\26A0"; }
+
+  /* Nav */
+  .tt-form-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--tt-border);
+  }
+
+  /* Buttons */
+  .tt-form-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    border: none;
+    background: var(--tt-navy);
+    color: var(--tt-white);
+    padding: 0.65rem 1.3rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.2s ease;
+  }
+
+  .tt-form-btn:hover {
+    background: var(--tt-navy-dark);
+  }
+
+  .tt-form-btn-ghost {
+    background: transparent;
+    color: var(--tt-text-muted);
+  }
+
+  .tt-form-btn-ghost:hover {
+    background: transparent;
+    color: var(--tt-text);
+  }
+
+  /* Review box */
+  .tt-form-review {
+    background: var(--tt-white);
+    border: 1px solid var(--tt-border);
+    border-radius: 8px;
+    padding: 1.25rem;
+  }
+
+  .tt-form-review-row {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 0.75rem;
+    padding: 0.4rem 0;
+    border-bottom: 1px solid #EEE;
+    font-size: 0.9rem;
+  }
+
+  .tt-form-review-row:last-child { border-bottom: none; }
+
+  .tt-form-review-row dt {
+    font-weight: 600;
+    color: var(--tt-text);
+    margin: 0;
+  }
+
+  .tt-form-review-row dd {
+    margin: 0;
+    color: var(--tt-text-muted);
+    word-break: break-word;
+  }
+
+  /* Success card */
+  .tt-form-success {
+    background: var(--tt-sage-light);
+    border-left: 4px solid var(--tt-success);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .tt-form-success h3 {
+    color: var(--tt-success);
+    font-size: 1.05rem;
+    margin: 0 0 0.5rem;
+    font-family: Georgia, serif;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .tt-form-success h3::before { content: "\2713"; }
+
+  .tt-form-success p {
+    color: var(--tt-text-muted);
+    font-size: 0.9rem;
+    margin: 0 0 1rem;
+  }
+
+  .tt-is-hidden { display: none !important; }
+
+  /* Mobile */
+  @media (max-width: 600px) {
+    .tt-form-box { padding: 1.5rem 1.25rem; }
+    .tt-form-field-row { grid-template-columns: 1fr; }
+    .tt-form-step-label { font-size: 0.7rem; }
+    .tt-form-connector { margin: 0 0.25rem 1.4rem; }
+    .tt-form-circle { width: 30px; height: 30px; font-size: 0.85rem; }
+    .tt-form-review-row {
+      grid-template-columns: 1fr;
+      gap: 0.1rem;
+    }
+  }
+</style>
+
+<div class="tt-form" id="tt-form-root">
+  <div class="tt-form-box">
+    <div class="tt-form-title">Program enquiry form</div>
+
+    <!-- Step indicator -->
+    <div class="tt-form-steps">
+      <div class="tt-form-node is-active" data-step="1">
+        <div class="tt-form-circle"><span class="tt-form-num">1</span></div>
+        <div class="tt-form-step-label">Your details</div>
+      </div>
+      <div class="tt-form-connector" data-conn="1"></div>
+      <div class="tt-form-node" data-step="2">
+        <div class="tt-form-circle"><span class="tt-form-num">2</span></div>
+        <div class="tt-form-step-label">Program selection</div>
+      </div>
+      <div class="tt-form-connector" data-conn="2"></div>
+      <div class="tt-form-node" data-step="3">
+        <div class="tt-form-circle"><span class="tt-form-num">3</span></div>
+        <div class="tt-form-step-label">Review &amp; submit</div>
+      </div>
+    </div>
+
+    <!-- Step 1 -->
+    <div id="tt-step-1">
+      <div class="tt-form-step-title">Step 1 &mdash; Your details</div>
+
+      <div class="tt-form-field">
+        <label for="tt-name" class="tt-form-label tt-form-label-req">Full name</label>
+        <input type="text" id="tt-name" class="tt-form-input" autocomplete="name">
+        <div id="tt-err-name" class="tt-form-error"></div>
+      </div>
+
+      <div class="tt-form-field">
+        <label for="tt-email" class="tt-form-label tt-form-label-req">Email address</label>
+        <input type="email" id="tt-email" class="tt-form-input" autocomplete="email">
+        <div id="tt-err-email" class="tt-form-error"></div>
+      </div>
+
+      <div class="tt-form-field">
+        <label for="tt-phone" class="tt-form-label">Phone <span class="tt-form-optional">(optional)</span></label>
+        <input type="tel" id="tt-phone" class="tt-form-input" autocomplete="tel">
+      </div>
+
+      <div class="tt-form-nav">
+        <span></span>
+        <button type="button" id="tt-next-1" class="tt-form-btn">Next: Program selection &rarr;</button>
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div id="tt-step-2" class="tt-is-hidden">
+      <div class="tt-form-step-title">Step 2 &mdash; Program selection</div>
+
+      <div class="tt-form-field">
+        <label for="tt-program" class="tt-form-label tt-form-label-req">Program of interest</label>
+        <select id="tt-program" class="tt-form-select">
+          <option value="">Select a program&hellip;</option>
+          <option value="Mental wellness program">Mental wellness program</option>
+          <option value="Community support">Community support</option>
+          <option value="Youth programs">Youth programs</option>
+          <option value="Family wellbeing workshops">Family wellbeing workshops</option>
+          <option value="Self-care toolkit series">Self-care toolkit series</option>
+          <option value="Student resilience program">Student resilience program</option>
+          <option value="Not sure yet">Not sure yet &mdash; open to suggestions</option>
+        </select>
+        <div id="tt-err-program" class="tt-form-error"></div>
+      </div>
+
+      <div class="tt-form-field-row">
+        <div class="tt-form-field">
+          <label for="tt-date" class="tt-form-label">Preferred contact date</label>
+          <input type="date" id="tt-date" class="tt-form-input">
+          <div id="tt-date-hint" class="tt-form-hint tt-is-hidden">Date confirmed</div>
+        </div>
+
+        <div class="tt-form-field">
+          <label for="tt-age" class="tt-form-label">Participant age group</label>
+          <select id="tt-age" class="tt-form-select">
+            <option value="">Choose&hellip;</option>
+            <option value="Child (under 12)">Child (under 12)</option>
+            <option value="Teen (12-17)">Teen (12&ndash;17)</option>
+            <option value="Adult (18+)">Adult (18+)</option>
+            <option value="Mixed / family">Mixed / family</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="tt-form-field">
+        <label for="tt-msg" class="tt-form-label">Additional information</label>
+        <textarea id="tt-msg" class="tt-form-textarea" placeholder="Please describe any specific needs or questions you may have regarding the selected program."></textarea>
+      </div>
+
+      <div class="tt-form-nav">
+        <button type="button" id="tt-back-2" class="tt-form-btn tt-form-btn-ghost">&larr; Back</button>
+        <button type="button" id="tt-next-2" class="tt-form-btn">Next: Review &rarr;</button>
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div id="tt-step-3" class="tt-is-hidden">
+      <div class="tt-form-step-title">Step 3 &mdash; Review &amp; submit</div>
+      <p style="color:var(--tt-text-muted);font-size:0.9rem;margin:0 0 1rem;">
+        Please review the details below before submitting your enquiry.
+      </p>
+
+      <div id="tt-review" class="tt-form-review"></div>
+
+      <div class="tt-form-nav">
+        <button type="button" id="tt-back-3" class="tt-form-btn tt-form-btn-ghost">&larr; Back</button>
+        <button type="button" id="tt-submit" class="tt-form-btn">Submit enquiry</button>
+      </div>
+    </div>
+
+    <!-- Success -->
+    <div id="tt-success" class="tt-form-success tt-is-hidden">
+      <h3>Enquiry submitted successfully</h3>
+      <p>A member of the ThriveTogether team will be in touch within 2&ndash;3 business days. A copy of your enquiry is shown below for reference.</p>
+      <div id="tt-success-details"></div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  (function() {
+    var root = document.getElementById('tt-form-root');
+    if (!root) return;
+
+    var state = {
+      step: 1,
+      name: '', email: '', phone: '',
+      program: '', date: '', age: '', message: ''
+    };
+
+    var els = {
+      nodes: root.querySelectorAll('.tt-form-node'),
+      conns: root.querySelectorAll('.tt-form-connector'),
+      step1: document.getElementById('tt-step-1'),
+      step2: document.getElementById('tt-step-2'),
+      step3: document.getElementById('tt-step-3'),
+      success: document.getElementById('tt-success'),
+      name: document.getElementById('tt-name'),
+      email: document.getElementById('tt-email'),
+      phone: document.getElementById('tt-phone'),
+      program: document.getElementById('tt-program'),
+      date: document.getElementById('tt-date'),
+      age: document.getElementById('tt-age'),
+      msg: document.getElementById('tt-msg'),
+      errName: document.getElementById('tt-err-name'),
+      errEmail: document.getElementById('tt-err-email'),
+      errProgram: document.getElementById('tt-err-program'),
+      dateHint: document.getElementById('tt-date-hint'),
+      review: document.getElementById('tt-review'),
+      successDetails: document.getElementById('tt-success-details'),
+      next1: document.getElementById('tt-next-1'),
+      next2: document.getElementById('tt-next-2'),
+      back2: document.getElementById('tt-back-2'),
+      back3: document.getElementById('tt-back-3'),
+      submit: document.getElementById('tt-submit')
+    };
+
+    function emailValid(s) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s);
+    }
+
+    function escapeHtml(s) {
+      return String(s)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function showStep(n) {
+      [els.step1, els.step2, els.step3].forEach(function(s) { s.classList.add('tt-is-hidden'); });
+      var target = [null, els.step1, els.step2, els.step3][n];
+      if (target) target.classList.remove('tt-is-hidden');
+
+      els.nodes.forEach(function(node) {
+        var step = parseInt(node.getAttribute('data-step'), 10);
+        node.classList.remove('is-active', 'is-done');
+        if (step < n) node.classList.add('is-done');
+        else if (step === n) node.classList.add('is-active');
+      });
+
+      els.conns.forEach(function(c) {
+        var conn = parseInt(c.getAttribute('data-conn'), 10);
+        if (conn < n) c.classList.add('is-done');
+        else c.classList.remove('is-done');
+      });
+
+      state.step = n;
+    }
+
+    function validateStep1() {
+      var ok = true;
+      var name = els.name.value.trim();
+      var email = els.email.value.trim();
+
+      if (!name) {
+        els.errName.textContent = 'Please enter your name.';
+        els.name.classList.add('is-invalid');
+        ok = false;
+      } else {
+        els.errName.textContent = '';
+        els.name.classList.remove('is-invalid');
+      }
+
+      if (!email) {
+        els.errEmail.textContent = 'Please enter your email.';
+        els.email.classList.add('is-invalid');
+        ok = false;
+      } else if (!emailValid(email)) {
+        els.errEmail.textContent = 'Please enter a valid email address';
+        els.email.classList.add('is-invalid');
+        ok = false;
+      } else {
+        els.errEmail.textContent = '';
+        els.email.classList.remove('is-invalid');
+      }
+
+      if (ok) {
+        state.name = name;
+        state.email = email;
+        state.phone = els.phone.value.trim();
+      }
+      return ok;
+    }
+
+    function validateStep2() {
+      var ok = true;
+      var program = els.program.value;
+
+      if (!program) {
+        els.errProgram.textContent = 'Please choose a program.';
+        els.program.classList.add('is-invalid');
+        ok = false;
+      } else {
+        els.errProgram.textContent = '';
+        els.program.classList.remove('is-invalid');
+      }
+
+      if (ok) {
+        state.program = program;
+        state.date = els.date.value;
+        state.age = els.age.value;
+        state.message = els.msg.value.trim();
+      }
+      return ok;
+    }
+
+    function formatDate(d) {
+      if (!d) return 'Not specified';
+      try {
+        return new Date(d).toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' });
+      } catch (e) {
+        return d;
+      }
+    }
+
+    function fillReview() {
+      var rows = [
+        ['Name', state.name],
+        ['Email', state.email],
+        ['Phone', state.phone || 'Not provided'],
+        ['Program of interest', state.program],
+        ['Preferred contact date', formatDate(state.date)],
+        ['Participant age group', state.age || 'Not specified'],
+        ['Additional information', state.message || 'None']
+      ];
+      var html = '<dl style="margin:0;">';
+      rows.forEach(function(r) {
+        html += '<div class="tt-form-review-row"><dt>' + r[0] + '</dt><dd>' + escapeHtml(r[1]) + '</dd></div>';
+      });
+      html += '</dl>';
+      els.review.innerHTML = html;
+    }
+
+    function generateReference() {
+      var d = new Date();
+      var yy = String(d.getFullYear()).slice(-2);
+      var mm = String(d.getMonth() + 1).padStart(2, '0');
+      var dd = String(d.getDate()).padStart(2, '0');
+      var rand = String(Math.floor(Math.random() * 900) + 100);
+      return '#TT-' + yy + mm + dd + '-' + rand;
+    }
+
+    function submit() {
+      var reference = generateReference();
+      var rows = [
+        ['Reference', reference],
+        ['Name', state.name],
+        ['Email', state.email],
+        ['Program', state.program],
+        ['Contact date', formatDate(state.date)]
+      ];
+      var html = '<dl style="margin:0;">';
+      rows.forEach(function(r) {
+        html += '<div class="tt-form-review-row"><dt>' + r[0] + '</dt><dd>' + escapeHtml(r[1]) + '</dd></div>';
+      });
+      html += '</dl>';
+      els.successDetails.innerHTML = html;
+
+      [els.step1, els.step2, els.step3].forEach(function(s) { s.classList.add('tt-is-hidden'); });
+      els.success.classList.remove('tt-is-hidden');
+
+      els.nodes.forEach(function(n) {
+        n.classList.remove('is-active');
+        n.classList.add('is-done');
+      });
+      els.conns.forEach(function(c) { c.classList.add('is-done'); });
+    }
+
+    els.next1.addEventListener('click', function() {
+      if (validateStep1()) showStep(2);
+    });
+    els.next2.addEventListener('click', function() {
+      if (validateStep2()) { fillReview(); showStep(3); }
+    });
+    els.back2.addEventListener('click', function() { showStep(1); });
+    els.back3.addEventListener('click', function() { showStep(2); });
+    els.submit.addEventListener('click', function() { submit(); });
+
+    // Inline email validation on blur
+    els.email.addEventListener('blur', function() {
+      var v = els.email.value.trim();
+      if (v && !emailValid(v)) {
+        els.errEmail.textContent = 'Please enter a valid email address';
+        els.email.classList.add('is-invalid');
+      } else if (v) {
+        els.errEmail.textContent = '';
+        els.email.classList.remove('is-invalid');
+      }
+    });
+
+    // Date confirmation hint
+    els.date.addEventListener('change', function() {
+      if (els.date.value) els.dateHint.classList.remove('tt-is-hidden');
+      else els.dateHint.classList.add('tt-is-hidden');
+    });
+  })();
+</script>

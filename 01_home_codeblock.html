@@ -1,0 +1,288 @@
+<style>
+  .tt-home {
+    --tt-navy: #1F3A5F;
+    --tt-navy-dark: #142640;
+    --tt-navy-light: #E8EEF6;
+    --tt-cream: #F8F6EF;
+    --tt-sage: #7C9444;
+    --tt-sage-light: #EAF0D5;
+    --tt-text: #2A2A2A;
+    --tt-text-muted: #5A5A5A;
+    --tt-border: #DDD;
+    --tt-border-light: #EEE;
+
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    color: var(--tt-text);
+    line-height: 1.6;
+  }
+
+  .tt-home * { box-sizing: border-box; }
+
+  .tt-home-section {
+    padding: 3rem 0;
+    border-bottom: 1px solid var(--tt-border-light);
+  }
+
+  .tt-home-label {
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--tt-navy);
+    margin-bottom: 1.5rem;
+  }
+
+  /* Featured Programs - 4 column grid */
+  .tt-home-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+
+  .tt-home-card {
+    background: #fff;
+    border: 1px solid var(--tt-border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .tt-home-card:hover {
+    border-color: var(--tt-sage);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(20, 38, 64, 0.1);
+  }
+
+  .tt-home-card-icon {
+    width: 32px;
+    height: 32px;
+    background: var(--tt-navy-light);
+    border-radius: 6px;
+    margin-bottom: 1rem;
+  }
+
+  .tt-home-card-icon-sage { background: var(--tt-sage-light); }
+
+  .tt-home-card h3 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 1.15rem;
+    color: var(--tt-navy);
+    margin: 0 0 0.5rem;
+    line-height: 1.25;
+  }
+
+  .tt-home-card p {
+    color: var(--tt-text-muted);
+    font-size: 0.95rem;
+    margin: 0;
+  }
+
+  /* Resource Highlights - 3 pill cards */
+  .tt-home-pills {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  .tt-home-pill {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: var(--tt-cream);
+    border: 1px solid var(--tt-border);
+    border-radius: 12px;
+    padding: 1rem;
+    text-decoration: none;
+    color: var(--tt-text);
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+
+  .tt-home-pill:hover {
+    border-color: var(--tt-sage);
+    background: var(--tt-sage-light);
+  }
+
+  .tt-home-pill-icon {
+    width: 24px;
+    height: 24px;
+    background: var(--tt-sage-light);
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+
+  .tt-home-pill span { font-weight: 500; font-size: 0.95rem; }
+
+  /* FAQ link strip */
+  .tt-home-faq-strip {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    padding: 1rem 1.25rem;
+    border: 1px solid var(--tt-border);
+    border-radius: 12px;
+  }
+
+  .tt-home-faq-strip span { color: var(--tt-text-muted); }
+
+  /* CTA strip (footer of section) */
+  .tt-home-cta {
+    background: var(--tt-navy);
+    color: #fff;
+    padding: 1.5rem 2rem;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin: 1.5rem 0;
+  }
+
+  .tt-home-cta h3 {
+    color: #fff;
+    margin: 0;
+    font-family: Georgia, serif;
+    font-size: 1.2rem;
+  }
+
+  /* Buttons */
+  .tt-home-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border: none;
+    background: var(--tt-navy);
+    color: #fff;
+    padding: 0.65rem 1.3rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s ease;
+    font-family: inherit;
+  }
+
+  .tt-home-btn:hover {
+    background: var(--tt-navy-dark);
+    color: #fff;
+  }
+
+  .tt-home-btn-secondary {
+    background: #fff;
+    color: var(--tt-navy);
+    border: 1px solid var(--tt-border);
+  }
+
+  .tt-home-btn-secondary:hover {
+    background: var(--tt-cream);
+    color: var(--tt-navy);
+  }
+
+  .tt-home-cta .tt-home-btn {
+    background: #fff;
+    color: var(--tt-navy);
+  }
+
+  .tt-home-cta .tt-home-btn:hover {
+    background: var(--tt-cream);
+    color: var(--tt-navy);
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .tt-home-grid { grid-template-columns: 1fr 1fr; }
+    .tt-home-pills { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 600px) {
+    .tt-home-grid { grid-template-columns: 1fr; }
+    .tt-home-cta { flex-direction: column; text-align: center; }
+    .tt-home-faq-strip { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+
+<div class="tt-home">
+
+  <!-- Featured Programs -->
+  <section class="tt-home-section">
+    <div class="tt-home-label">Featured programs</div>
+    <div class="tt-home-grid">
+
+      <a href="/programs" class="tt-home-card">
+        <div class="tt-home-card-icon"></div>
+        <h3>Mental wellness</h3>
+        <p>Support and guidance for mental health</p>
+      </a>
+
+      <a href="/programs" class="tt-home-card">
+        <div class="tt-home-card-icon"></div>
+        <h3>Community support</h3>
+        <p>Connecting people to local services</p>
+      </a>
+
+      <a href="/programs" class="tt-home-card">
+        <div class="tt-home-card-icon"></div>
+        <h3>Youth programs</h3>
+        <p>Programs designed for young people</p>
+      </a>
+
+      <a href="/resources" class="tt-home-card">
+        <div class="tt-home-card-icon tt-home-card-icon-sage"></div>
+        <h3>Educational resources</h3>
+        <p>Learning tools and materials</p>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- Resource Highlights -->
+  <section class="tt-home-section">
+    <div class="tt-home-label">Resource highlights</div>
+    <div class="tt-home-pills">
+
+      <a href="/resources" class="tt-home-pill">
+        <div class="tt-home-pill-icon"></div>
+        <span>Download guides</span>
+      </a>
+
+      <a href="/resources" class="tt-home-pill">
+        <div class="tt-home-pill-icon"></div>
+        <span>Articles &amp; support</span>
+      </a>
+
+      <a href="/resources" class="tt-home-pill">
+        <div class="tt-home-pill-icon"></div>
+        <span>Support materials</span>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- FAQ link strip -->
+  <section class="tt-home-section">
+    <div class="tt-home-label">Frequently asked questions</div>
+    <div class="tt-home-faq-strip">
+      <span>Find answers to common questions about our programs and services</span>
+      <a href="/faq" class="tt-home-btn tt-home-btn-secondary">Browse FAQs</a>
+    </div>
+  </section>
+
+  <!-- Contact CTA -->
+  <section style="padding: 1.5rem 0 3rem;">
+    <div class="tt-home-cta">
+      <h3>Need support? Contact ThriveTogether</h3>
+      <a href="/contact" class="tt-home-btn">Get in touch</a>
+    </div>
+  </section>
+
+</div>
